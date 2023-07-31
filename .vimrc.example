@@ -1,0 +1,8 @@
+" Turn on hilighted search results
+set hlsearch
+
+" Turn on 'shell' syntax highlighting.  I might rename this to 'shell-session'
+let g:markdown_fenced_languages = ['shell']
+
+"let g:markdown_fenced_languages = ['bash', 'php', 'mysql', 'shell']
+
