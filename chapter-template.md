@@ -8,10 +8,10 @@ can be copied for Makefile testing and initial file generation.
 
 Now we go into details.
 
-There might be some example command-line usage with accompanying shell output.
+There might be some example command-line usage with accompanying console output.
 This is an example of such output:
 
-```shell
+```console
 // This is a comment
 $ some-command
 Some Output
@@ -38,6 +38,6 @@ Hello World!
 etc.
 
 <!--
-```shell
+```console
 ```
  -->

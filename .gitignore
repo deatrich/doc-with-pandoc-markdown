@@ -1,6 +1,7 @@
 Archive
 *~
 .*.swp
-/guide-name.html
-/guide-name.pdf
+.nfs*
+/pandoc-markdown-guide.html
+/pandoc-markdown-guide.pdf
 Generated

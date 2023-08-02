@@ -1,2 +1,3 @@
 metadata.md
 overview.md
+setup-files.md
