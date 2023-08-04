@@ -20,11 +20,12 @@ This is a work in progress; here is the preliminary task list.
 ## Preliminary task list for main document
 - [x] Copy and modify initial support files from *linux-home-server* project
 - [ ] Complete an 'overview' chapter 
-- [ ] Describe all support files and complete the 'setup-files' chapter
+- [x] Describe all support files and complete the 'setup-files' chapter
 - [ ] Document the client software installation
 - [ ] Complete the 'create-workspace' chapter
 - [ ] Document editor setup and issues
 - [ ] Complete 'editor-issues' chapter
+- [ ] Add additional topics like spell-checking
 - [ ] Write a chapter on using Pandoc with markdown examples
 
 [home-server]: https://github.com/deatrich/linux-home-server/
