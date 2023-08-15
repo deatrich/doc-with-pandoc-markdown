@@ -1,8 +1,10 @@
 <!-- -->
 # Files provided with this project
 
+## Getting the files
+
 The files provided with this project can be downloaded from my github area
-found at [https://github.com/deatrich/doc-with-pandoc-markdown][myproject].
+found at [https://github.com/deatrich/doc-with-pandoc-markdown][thisproject].
 
 You can either use *git* to clone the project, or pick up a *zip* file of
 the project.
@@ -32,6 +34,7 @@ $ cd doc-with-pandoc-markdown
 Let's look at the pertinent files provided with this project and their purpose.
 
   * [generate-new-guide.sh](#i-script)
+  * [generate-table.sh](#i-tabscript)
   * [Makefile](#i-make)
   * [guide-template.md](#i-guide)
   * [chapter-template.md](#i-chapter)
@@ -44,8 +47,6 @@ Let's look at the pertinent files provided with this project and their purpose.
   * [console.xml](#i-xml)
   * [console.vim](#i-vimsyn)
   * [.vimrc.example](#i-vimrc)
-
-[myproject]: https://github.com/deatrich/doc-with-pandoc-markdown
 
 ## Shell script: *generate-new-guide.sh* {#i-script}
 
@@ -72,6 +73,37 @@ Please visit /home/myname/docs/pet-project/
 // When you are done with the temporary files then delete them.
 $ cd
 $ rm -rf ~/temp
+```
+
+## Shell script: *generate-table.sh* {#i-tabscript}
+
+If you find yourself creating tables in Markdown then sometimes it
+is useful to start with an empty table.  The included script will 
+print out an empty table, using the specified number of rows and columns;
+and the table width and the column height in characters.  You should copy
+it into your PATH - normally this means you copy it into ~/bin/
+
+```console
+$ cp -p /path/to/generate-table.sh ~/bin/
+$ chmod 755 ~/bin/generate-table.sh
+$ /generate-table.sh -r 1 -c 3  -w 60 -rh 3 -header yes
++--------------------+--------------------+--------------------+
+|                    |                    |                    |
++====================+====================+====================+
+|                    |                    |                    |
+|                    |                    |                    |
+|                    |                    |                    |
++--------------------+--------------------+--------------------+
+```
+
+If you are using the vim or gvim editors, then you can map a
+control-key sequence to insert a table into the document by
+altering your .vimrc file:
+
+```console
+$ grep generate-table ~/.vimrc
+" call generate-table.sh when CONTROL-Z is pressed:
+map <C-z> <esc> !} generate-table.sh -r 4 -c 3  -w 70 -rh 3 -header yes<C-m><esc>
 ```
 
 ## Useful tool for generating output: *Makefile* {#i-make}
@@ -345,7 +377,7 @@ add it to the array of markdown fenced languages; that is:
 ```console
 $ cat ~/.vimrc
 ...
-let g:markdown_fenced_languages = ['console', 'shell', 'sh', 'php', 'mysql']
+let g:markdown_fenced_languages = ['console', 'sh', 'php', 'mysql', 'css']
 ```
 
 The *.vimrc.example* is a minimal startup file that should be renamed or

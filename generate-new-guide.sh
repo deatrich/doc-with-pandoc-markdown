@@ -77,6 +77,8 @@ editorfiles="console.vim .vimrc.example"
 
 md_templates="guide-template.md chapter-template.md"
 
+misc_files="generate-tables.sh"
+
 #modfiles="Makefile"
 
 for f in $files ; do
@@ -108,7 +110,7 @@ for f in $files ; do
   fi
 done
 
-for f in $editorfiles ; do
+for f in $editorfiles $misc_files ; do
   cp -p "$f" "$dir/editorfiles"/
   if [ $? -ne 0 ] ; then
     err_exit "copy of '$f' to $dir/editorfiles/ failed"
