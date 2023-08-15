@@ -56,7 +56,7 @@ $ some-command
 ```
 
 Recently I added a few more console commands which offer their own
-command-line shell, like *mysql* and *virsh*:
+command-line shell, like *mysql*, *mariadb* and *virsh*:
 
 ```console
 // mariadb session:
@@ -65,7 +65,7 @@ Enter password:
 Welcome to the MariaDB monitor.  Commands end with ; or \g.
 ...
 
-mysql> select concat(user, '@', host) from mysql.global_priv;
+MariaDB> select concat(user, '@', host) from mysql.global_priv;
 +-------------------------+
 | concat(user, '@', host) |
 +-------------------------+
@@ -76,7 +76,7 @@ mysql> select concat(user, '@', host) from mysql.global_priv;
 | root@localhost          |
 +-------------------------+
 5 rows in set (0.001 sec)
-mysql> exit;
+MariaDB> exit;
 Bye
 
 // virsh session:

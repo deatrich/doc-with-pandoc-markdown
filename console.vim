@@ -33,7 +33,7 @@ endif
 "----------------------- syntax matching ------------------------
 " Labels: consoleUserPrompt, consoleRootPrompt, consoleComment
 " mysql, virsh or other future commands with their own 'shell':
-" Labels: consoleMysql, consoleVirsh
+" Labels: consoleMysql, consoleMariadb, consoleVirsh
 
 syn region consoleUserPrompt start=/^$ / skip=/\\$/ excludenl end=/$/
 
@@ -43,6 +43,7 @@ syn region consoleRootPrompt start=/^# / skip=/\\$/ excludenl end=/$/
 " Not heavily tested...  Note that some mysql command types do not need to end
 "  in a semi-colon, but it also doesn't hurt to use one.
 syn region consoleMysql start=/^mysql> / end=/;$/
+syn region consoleMariadb start=/^MariaDB> / end=/;$/
 
 syn region consoleVirsh start=/^virsh # / end=/$/
 
@@ -51,12 +52,12 @@ syn match consoleComment '^\/\/ .*$'
 "------------------- set the style colors -----------------------
 if &background == "dark"
   hi cUser ctermfg=lightgreen term=bold cterm=bold gui=bold guifg=green
-  hi cSuper ctermfg=lightred term=bold cterm=bold gui=bold guifg=red
+  hi cSuper ctermfg=lightred term=bold cterm=bold gui=bold guifg=#F00505
   hi cOther ctermfg=magenta term=bold cterm=bold gui=bold guifg=purple1
-  hi cComment ctermfg=lightblue term=bold,italic cterm=bold,italic gui=bold,italic guifg=SlateBlue
+  hi cComment ctermfg=lightblue term=bold,italic cterm=bold,italic gui=bold,italic guifg=#0669FF
 else
   hi cUser ctermfg=green term=bold cterm=bold gui=bold guifg=seagreen
-  hi cSuper ctermfg=red term=bold cterm=bold gui=bold guifg=darkred
+  hi cSuper ctermfg=red term=bold cterm=bold gui=bold guifg=red
   hi cOther ctermfg=magenta term=bold cterm=bold gui=bold guifg=purple1
   hi cComment ctermfg=blue term=bold,italic cterm=bold,italic gui=bold,italic guifg=blue
 endif
@@ -65,6 +66,7 @@ endif
 hi! link consoleUserPrompt cUser
 hi! link consoleRootPrompt cSuper
 hi! link consoleMysql cOther
+hi! link consoleMariadb cOther
 hi! link consoleVirsh cOther
 hi! link consoleComment cComment
 

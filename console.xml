@@ -27,32 +27,37 @@ and create any file named 'some-file-name.console'
   <highlighting>
     <contexts>
       <context attribute="Output" name="Output" lineEndContext="#stay" >
-        <Detect2Chars char="$" char1=" " attribute="Command" context="Command 1" column="0"/>
-        <Detect2Chars char="#" char1=" " attribute="OtherCommand" context="OtherCommand 1" column="0"/>
+        <Detect2Chars char="$" char1=" " attribute="UserComm" context="UserComm 1" column="0"/>
+        <Detect2Chars char="#" char1=" " attribute="RootComm" context="RootComm 1" column="0"/>
         <Detect2Chars char="/" char1="/" attribute="Comment" context="Comment" column="0"/>
-        <RegExpr attribute="mysql" context="mysql" String="^mysql> " beginRegion="myreg"/>
+        <RegExpr attribute="mysql" context="mysql" String="^mysql> " beginRegion="mysqlreg"/>
+        <RegExpr attribute="mariadb" context="mariadb" String="^MariaDB> " beginRegion="mariareg"/>
         <RegExpr attribute="virsh" context="virsh" String="^virsh # "/>
       </context>
-      <context attribute="Command" name="Command 1" lineEndContext="#pop">
-        <LineContinue attribute="Command" context="#stay"/>
+      <context attribute="UserComm" name="UserComm 1" lineEndContext="#pop">
+        <LineContinue attribute="UserComm" context="#stay"/>
       </context>
-      <context attribute="OtherCommand" name="OtherCommand 1" lineEndContext="#pop">
-        <LineContinue attribute="OtherCommand" context="#stay"/>
+      <context attribute="RootComm" name="RootComm 1" lineEndContext="#pop">
+        <LineContinue attribute="RootComm" context="#stay"/>
       </context>
-      <context attribute="OtherCommand" name="OtherCommand" lineEndContext="#pop" />
+      <context attribute="RootComm" name="RootComm" lineEndContext="#pop" />
       <context attribute="Comment" name="Comment" lineEndContext="#pop" />
       <context attribute="mysql" lineEndContext="#stay" name="mysql">
-        <RegExpr attribute="mysql" context="#pop" String=";$" endRegion="myreg"/>
+        <RegExpr attribute="mysql" context="#pop" String=";$" endRegion="mysqlreg"/>
+      </context>
+      <context attribute="mariadb" lineEndContext="#stay" name="mariadb">
+        <RegExpr attribute="mariadb" context="#pop" String=";$" endRegion="mariareg"/>
       </context>
       <context attribute="virsh" name="virsh" lineEndContext="#pop" />
     </contexts>
     <itemDatas>
       <itemData name="Output" defStyleNum="dsNormal"/>
-      <itemData name="Command" defStyleNum="dsKeyword" bold="true"/>
-      <itemData name="OtherCommand" defStyleNum="dsFunction" bold="true"/>
-      <itemData name="Comment" defStyleNum="dsComment"/>
-      <itemData name="mysql" defStyleNum="dsDataType"/>
-      <itemData name="virsh" defStyleNum="dsDataType"/>
+      <itemData name="UserComm" defStyleNum="dsKeyword" bold="true"/>
+      <itemData name="RootComm" defStyleNum="dsFunction" color="#ff0000" bold="true"/>
+      <itemData name="Comment" defStyleNum="dsComment" color="#0000ff"/>
+      <itemData name="mysql" defStyleNum="dsDataType" color="#ff00ff" bold="true"/>
+      <itemData name="mariadb" defStyleNum="dsDataType" color="#ff00ff" bold="true"/>
+      <itemData name="virsh" defStyleNum="dsDataType" color="#ff00ff" bold="true"/>
     </itemDatas>
   </highlighting>
 </language>
