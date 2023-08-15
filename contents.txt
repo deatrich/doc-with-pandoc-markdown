@@ -1,3 +1,5 @@
 metadata.md
 overview.md
+create-workspace.md
 setup-files.md
+using-markdown.md
