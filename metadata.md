@@ -20,5 +20,11 @@ documentclass: report
 header-includes:
 - \renewcommand{\chaptername}{}
 - \renewcommand{\thechapter}{}
+## force figure placement to follow the text flow
+## see: https://stackoverflow.com/questions/49482221/pandoc-markdown-to-pdf-image-position
+- \usepackage{float}
+- \makeatletter
+- \def\fps@figure{H} 
+- \makeatother
 ---
 
