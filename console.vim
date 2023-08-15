@@ -2,7 +2,7 @@
 " Language: Console
 " Maintainer: Denice Deatrich <denice.deatrich at gmail.com>
 " Filenames: *.console
-" Last Change: 2023-08-09
+" Last Change: 2023-08-14
 
 " 'Console' is a contrived specfication for input/output at the Linux/UNIX
 " command-line.  It is useful for teaching purposes.
@@ -29,18 +29,22 @@ if exists("b:current_syntax")
   finish
 endif
 
-syn case ignore
 
 "----------------------- syntax matching ------------------------
-" Labels: consoleUserPrompt, consoleRootPrompt, consoleComment, consoleMysql
+" Labels: consoleUserPrompt, consoleRootPrompt, consoleComment
+" mysql, virsh or other future commands with their own 'shell':
+" Labels: consoleMysql, consoleVirsh
 
-syn region consoleUserPrompt start=/^$ / end=/$/ contains=consoleContinue
-syn region consoleRootPrompt start=/^# / end=/$/ contains=consoleContinue
-syn match consoleContinue "\\$" contained
+syn region consoleUserPrompt start=/^$ / skip=/\\$/ excludenl end=/$/
+
+syn region consoleRootPrompt start=/^# / skip=/\\$/ excludenl end=/$/
+
 
 " Not heavily tested...  Note that some mysql command types do not need to end
 "  in a semi-colon, but it also doesn't hurt to use one.
 syn region consoleMysql start=/^mysql> / end=/;$/
+
+syn region consoleVirsh start=/^virsh # / end=/$/
 
 syn match consoleComment '^\/\/ .*$'
 
@@ -61,6 +65,7 @@ endif
 hi! link consoleUserPrompt cUser
 hi! link consoleRootPrompt cSuper
 hi! link consoleMysql cOther
+hi! link consoleVirsh cOther
 hi! link consoleComment cComment
 
 let b:current_syntax = "console"
