@@ -46,6 +46,7 @@ PANDOC_PDF_OPTS	= --template=template.latex -V geometry:margin=2cm \
 #***************************************************************************
 ## DEFAULT GOAL
 
+## Remove any target from the 'all' rule to avoid generating it
 all:	$(HTMLOBJECT) $(PDFOBJECT) $(DOCXOBJECT)
 
 test:

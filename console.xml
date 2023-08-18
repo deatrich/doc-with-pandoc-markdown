@@ -40,7 +40,6 @@ and create any file named 'some-file-name.console'
       <context attribute="RootComm" name="RootComm 1" lineEndContext="#pop">
         <LineContinue attribute="RootComm" context="#stay"/>
       </context>
-      <context attribute="RootComm" name="RootComm" lineEndContext="#pop" />
       <context attribute="Comment" name="Comment" lineEndContext="#pop" />
       <context attribute="mysql" lineEndContext="#stay" name="mysql">
         <RegExpr attribute="mysql" context="#pop" String=";$" endRegion="mysqlreg"/>
