@@ -22,8 +22,12 @@ In this chapter I want to show a summary of common Pandoc's Markdown elements.
 Not all elements are shown here -- I picked the ones that I tend to use. The
 web links above provide greater detail.
 
-Most elements are easy to remember since markdown is all about writing simple
+Most elements are easy to remember since Markdown is all about writing simple
 text.
+
+Except for the example *table* element, all other example elements are 
+embedded in a table with the *element name* in the left column, the *markdown
+code* in the centre column, and the *generated output* in the right column.
 
 Markdown elements are sometimes explained the way HTML elements are - generally
 speaking they are divided into two categories: [*block* elements and *inline*
@@ -35,7 +39,7 @@ as *inline* elements.  Leaf elements may only include *inline* elements --
 the exceptions in this group are code blocks and horizontal rules which
 cannot contain anything.
 
-Block elements typically span an entire line.  Note that block elements are
+Block elements typically span at least an entire line.  Block elements are
 very sensitive to having some white space around them.  It is a good idea
 to put an empty line before and after them.
 
@@ -62,9 +66,9 @@ top level.
 | Element               | Markdown              | Output                 |
 +=======================+=======================+========================+
 | **Headings**          |```                    |                        |
-|                       |### Heading 3th level  | ### Heading 3th level  |
-|                       |                       |                        |
 |                       |#### Heading 4th level | #### Heading 4th level |
+|                       |                       |                        |
+|                       |##### Heading 5th level| ##### Heading 5th level|
 |                       |```                    |                        |
 +-----------------------+-----------------------+------------------------+
 
@@ -72,7 +76,7 @@ top level.
 
 These code blocks are surrounded by a 'fence' in that they are surrounded
 by a sequence of 3 or more backticks or tildes.  All text inside the fence
-is rendered as-is, without interpretation by the markdown processor.
+is rendered as-is, without interpretation by the Markdown processor.
 
 Moreover, the code block can be marked by an attribute that labels the kind
 of code inside the fence.  In this guide I use the *console* attribute, as 
@@ -168,41 +172,46 @@ Generally speaking tables are always a bit fussy to create in many document
 types.  I wrote a [shell script to generate empty grid tables](#i-tabscript)
 that makes it a bit easier to get started with a table.
 
-Tables in Pandoc markdown act as container block elements, in that they
+Tables in Pandoc Markdown act as container block elements, in that they
 may contain other elements.  The exception I have found is other tables;
 you cannot yet embed a table inside another table.
 
-Here is a table borrowed from the [Pandoc manual][pandoc-tables]:
+Here is a modified table borrowed from the [Pandoc manual][pandoc-tables].
+It also contains alignment hints.  Alignment (left, centre, right) in
+Markdown is indicated by the *colon* character at the upper edge of the
+first row in the table.  So in the following table the left column is
+left-aligned, the center column is centred, and the right column is
+right aligned:
 
-+-------------------+---------------+
-| Fruit             | Price         |
-+:==================+==============:+
-| *Bananas*         | $1.34         |
-+-------------------+---------------+
-| **Oranges**       | $2.10         |
-+-------------------+---------------+
++--------------+------------+-------------+
+| Fruit        | In Stock   | Price       |
++:=============+:==========:+============:+
+| *Bananas*    | Yes        | $1.34       |
++--------------+------------+-------------+
+| **Oranges**  | No         | $2.10       |
++--------------+------------+-------------+
 
 Table: This is a table caption.
 
-In markdown language it looks like the following:
+In Markdown language it looks like the following:
 
 ```
-+-------------------+---------------+
-| Fruit             | Price         |
-+:==================+==============:+
-| *Bananas*         | $1.34         |
-+-------------------+---------------+
-| **Oranges**       | $2.10         |
-+-------------------+---------------+
++--------------+------------+-------------+
+| Fruit        | In Stock   | Price       |
++:=============+:==========:+============:+
+| *Bananas*    | Yes        | $1.34       |
++--------------+------------+-------------+
+| **Oranges**  | No         | $2.10       |
++--------------+------------+-------------+
 
 Table: This is a table caption.
 ```
 
 [pandoc-tables]: https://pandoc.org/MANUAL.html#pandocs-markdown
 
-### Inline notes and footnotes
+### Footnotes and 'inline' notes
 
-To generate a footnote, the caret character -- **^** -- is used:
+To generate a note or footnote, the caret character -- **^** -- is used:
 
 +-----------------------+-----------------------+-----------------------+
 | Element               | Markdown              | Output                |
@@ -282,7 +291,7 @@ Links to external resources
 
 Links to internal document information 
 :    Typically you want to link to a heading somewhere in the document.
-     You can an an identifier to a heading so that you can make the link.
+     You can add a *label* to a heading so that you can link to it elsewhere.
      Pandoc automatically generates label names for headings in order to
      link a table of contents at the beginning of the document.
 
@@ -297,11 +306,11 @@ Links to internal document information
 |          | ```                        |                           |
 +----------+----------------------------+---------------------------+
 |**Internal| ```                        |                           |
-| Links**  | Look at [chapter 6](#ch6)  | Look at [chapter 6](#ch6) |
+| Links**  | Look at [topic X](#top-x)  | Look at [topic X](#top-x) |
 |          |                            |                           |
 |          | (later in the document)    |                           |
 |          |                            |                           |
-|          | ### Chapter 6 {#ch6}       | ### Chapter 6 {#ch6}      |
+|          | #### Topic X {#top-x}      | #### Topic X {#top-x}     |
 |          |                            |                           |
 |          | ```                        |                           |
 +----------+----------------------------+---------------------------+

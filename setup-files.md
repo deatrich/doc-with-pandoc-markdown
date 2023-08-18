@@ -22,10 +22,10 @@ $ wget -nd \
  https://github.com/deatrich/doc-with-pandoc-markdown/archive/refs/heads/main.zip
 $ unzip main.zip
 
-// Or you can also browse to the project web site, click on 'Code' and then
+// Or you can browse to the project web site, click on 'Code' and then
 //  click on 'Download ZIP'
-//  then move the downloaded file named 'main.zip' to your temporary directory
-//  and unzip it.
+// Then move the downloaded file named 'main.zip' to your temporary directory
+//  and extract its contents.
 
 // You will have a directory named 'doc-with-pandoc-markdown'
 $ cd doc-with-pandoc-markdown
@@ -51,7 +51,7 @@ Let's look at the pertinent files provided with this project and their purpose.
 ## Shell script: *generate-new-guide.sh* {#i-script}
 
 This shell script will generate a new document area where it copies all of
-the files described in this section, and creates the top-level markdown file.
+the files described in this section, and creates the top-level Markdown file.
 
 Once you have obtained the files as described above, then you can use this
 script to set up your work area:
@@ -86,6 +86,7 @@ it into your PATH - normally this means you copy it into ~/bin/
 ```console
 $ cp -p /path/to/generate-table.sh ~/bin/
 $ chmod 755 ~/bin/generate-table.sh
+// We create a table 1 row by 3 columns, 60 chars wide. Row height is 3 chars
 $ /generate-table.sh -r 1 -c 3  -w 60 -rh 3 -header yes
 +--------------------+--------------------+--------------------+
 |                    |                    |                    |
@@ -102,7 +103,7 @@ altering your .vimrc file:
 
 ```console
 $ grep generate-table ~/.vimrc
-" call generate-table.sh when CONTROL-Z is pressed:
+" call generate-table.sh when Control+Z is pressed:
 map <C-z> <esc> !} generate-table.sh -r 4 -c 3  -w 70 -rh 3 -header yes<C-m><esc>
 ```
 
@@ -113,8 +114,8 @@ to have a [makefile][make] which runs the commands on your behalf.
 
 Take a careful look at this file.  The generator script edits 
 it and sets the correct name for the project's top file. Other
-variables that the makefile sets are the PDF and the HTML viewers.
-You should change them if you prefer other viewers.
+variables that the makefile includes are the PDF, Office and the HTML viewers.
+Change them if you prefer other viewers.
 
 The rules in this file are mentioned if you ask for help:
 
@@ -124,8 +125,10 @@ make all          -- update all file types
 make test         -- modify then run a test target
 make html         -- update the html file
 make pdf          -- update the pdf file
+make docx         -- update the docx file
 make showhtml     -- show the html file
 make showpdf      -- show the pdf file
+make showdocx     -- show the docx file
 make copies       -- push html and pdf copies to generated area
 make publish      -- push html and pdf copies to publishing area
 make clean        -- clean up generated files
@@ -133,21 +136,23 @@ make clean        -- clean up generated files
 // because the very first rule is 'make all' then when you type
 // 'make' it will make all generated files, for example:
 $ make
-pandoc -s metadata.md ... -c style.css --toc ... -o your-guide.html
-pandoc -s metadata.md ... --pdf-engine=xelatex -o your-guide.pdf
+pandoc -s metadata.md ... -c style.css --toc ... -o my-guide.html
+pandoc -s metadata.md ... --pdf-engine=xelatex -o my-guide.pdf
+pandoc -s metadata.md ... --reference-doc=custom-reference.docx -o my-guide.docx
 
 // you can clean up the generated files at any time:
 $ make clean
 rm -i *.html *.pdf
-rm: remove regular file 'your-guide.html'? y
-rm: remove regular file 'your-guide.pdf'? y
+rm: remove regular file 'my-guide.html'? y
+rm: remove regular file 'my-guide.pdf'? y
+rm: remove regular file 'my-guide.docx'? y
 ```
 
 [make]: https://en.wikipedia.org/wiki/Make_(software)
 
 ## Markdown files
 
-There are two markdown files which you can copy to other file names.
+There are two Markdown files which you can copy to other filenames.
 They are found in the *md_templates* sub-directory.
 
 ### Template for the top-level document: *guide-template.md* {#i-guide}
@@ -161,9 +166,9 @@ generating output files.
 
 ### Template for a new chapter or section: *chapter-template.md* {#i-chapter}
 
-When creating new markdown files which are part of your project you can
-copy *chapter-template.md* to your new file.  This file has skeleton
-markdown lines in it.
+When creating new Markdown files which are part of your project you can
+copy *chapter-template.md* to your new file instead of starting from scratch.
+This file has skeleton Markdown lines in it.
 
 ### Metadata needed by pandoc: *metadata.md* {#i-metadata}
 
@@ -179,13 +184,13 @@ and *date* (date is the initial creation date).
 
 When you start a documentation project it might end up quite large, with many
 chapters or sections in it.  It is annoying to edit one big file.  Instead
-it is more manageable if you create one file per chapter for example.
+it is more manageable if you create, for example, one file per chapter.
 
 The purpose of *contents.txt* is to simply list the chapters or sections
 by filename.  They must be listed in the order you expect to find them
 in your final document.  Note that *metadata.md* must be the first file.
 
-The 'Makefile' will get the list of markdown files from this file, and
+The 'Makefile' will get the list of Markdown files from this file, and
 pass the list to the pandoc program.
 
 ## Files which affect document content and ordering
@@ -195,14 +200,15 @@ ordering for most output formats.  You can get the default template by
 asking pandoc for it on the command-line:
 
 ```console
-// The latex template is used whenever PDF output is generated:
+// The latex template is used whenever PDF output is generated.
+// There is no template for docx.
 $ pandoc -D latex > template.latex.default
 
 $ pandoc -D html > template.html.default
 ```
 
 I made a few changes for HTML and for PDF to add a 'Last update' field and
-to change the class for the 'date' value.  As well, for PDF I modified
+I removed the class for the 'date' value.  As well, for PDF I modified
 the latex template to get the table of contents to appear in the bookmarks
 of a PDF viewer.
 
@@ -248,7 +254,34 @@ $ diff template.latex.default template.latex
 440a446
 ```
 
-## Files which control style and syntax highlighting
+## Files which control style
+
+### *style.css* {#i-css}
+
+Only for HTML (and EPUB) output you can provide your own CSS[^css] files. 
+You can add as many style sheets as you want simply by adding multiple
+*-c* options:
+
+   *-c thisfile.css -c SOME_URL -c anotherfile.css*
+
+Remember that later stylesheets can override previous stylesheet items when
+the same element's style is defined; therefore order is important.
+
+The included *makefile* uses the following css style file order.  I rather like
+[this latex-like css style][latex-css] file.  You can obviously update the
+Makefile and use other style files which you prefer.
+
+```console
+$ pandoc ... -c https://latex.now.sh/style.css -c style.css ...
+```
+
+[^css]: Cascading Style Sheet
+
+[latex-css]: https://github.com/vincentdoerig/latex-css
+
+(!! still need to describe getting and using a reference docx file)
+
+## Files which control syntax highlighting
 
 Pandoc allows you to add syntax highlighting to enhance and differentiate
 the syntax in computer languages, scripting or other relevant digital output.
@@ -313,29 +346,6 @@ pre-defined style to them.
 Then this theme file provides the pre-defined text styles specified by
 the XML file.
 
-### *style.css* {#i-css}
-
-Finally only for HTML (and EPUB) output you can provide your own
-CSS[^css] style sheet files.  You can add as many style sheets as you want 
-simply by adding multiple *-c* options:
-
- *-c thisfile.css -c SOME_URL -c anotherfile.css*
-
-Remember that later stylesheets can override previous stylesheet items when
-the same element's style is defined; therefore order is important.
-
-The included *makefile* uses the following css style file order.  I rather like
-[this latex-like css style][latex-css] file.  You can obviously update the
-Makefile and use other style files which you prefer.
-
-```console
-$ pandoc ... -c https://latex.now.sh/style.css -c style.css ...
-```
-
-[^css]: Cascading Style Sheet
-
-[latex-css]: https://github.com/vincentdoerig/latex-css
-
 ## Editor files for *vim*/*gvim*
 
 While it is nice to have customized syntax highlighting in your final
@@ -348,7 +358,7 @@ computer languages, scripts and console input/output.
 
 ### Highlighting syntax for 'console' input/output:  *console.vim* {#i-vimsyn}
 
-This file should be installed in *~/.vim/*:
+Install this file into *~/.vim/syntax/*:
 
 ```console
 $ mkdir -p ~/.vim/syntax
@@ -356,7 +366,7 @@ $ cp -p /path/to/console.vim ~/.vim/syntax/
 ```
 
 This simple syntax definition file works because it piggybacks on the
-existing *markdown* syntax highlighting file that vim uses:
+existing *Markdown* syntax highlighting file that vim uses:
 
 ```console
 // 
@@ -372,7 +382,7 @@ $ head /usr/share/vim/vim82/syntax/markdown.vim
 ### Example **~/.vimrc** configuration file: *.vimrc.example* {#i-vimrc}
 
 In order for the *console.vim* file to work in a vim editor you need to
-add it to the array of markdown fenced languages; that is:
+add it to the array of Markdown fenced languages; that is:
 
 ```console
 $ cat ~/.vimrc

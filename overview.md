@@ -3,7 +3,7 @@
 
 Documenting with the [Markdown language][md] is wonderfully simple and clean.
 When combined with the capabilities of the [Pandoc][pandoc] command set then
-many options exist for generating elegant documents from a markdown document.
+many options exist for generating elegant documents from a Markdown document.
 
 Though [many output formats][pandoc-formats] are possible with Pandoc, the
 tools provided with this guide provide generated *html* and *pdf* output.
@@ -11,8 +11,8 @@ As well, *docx* output is provided with the tools.  However, control over
 the formatting of the console session output is limited in the generated docx
 guide.  If I find a way around it I will provide updates.
 
-These tools focus on writing computer technical documentation, but 
-they could easily be adapted for other purposes, like writing presentation
+These tools focus on writing computer technical documentation; however 
+they can easily be adapted for other purposes, like writing presentation
 slides, or scientific latex documents.  By modifying style and template
 parameters you can adapt the tools to your needs.
 
@@ -99,24 +99,28 @@ virsh # exit
 Sometimes command output is long and/or uninteresting in the context
 of this guide.  I might show such segments with a ellipsis (**...**)
 
+Sometimes a double-exclamation (**!!**) mark might appear somewhere -- this
+is only a reminder for myself to fix an issue at that point in the
+documentation.  These reminders will eventually disappear.
+
 ## Guide outline
 
 In this guide I cover the following topics.  It should be enough to get
-you started writing documentation in markdown.
+you started writing documentation in Markdown.
 
 We start by setting up your workspace.  We install Pandoc, as well as my
-favourite editor and a few PDF viewers.  Other viewers like Firefox and
-LibreOffice are typically already installed, but I point out some issues
-you might encounter and how to fix them.
+favourite editor (or your favourite editor) and a few PDF viewers.  Other
+viewers like Firefox and LibreOffice are typically already installed,
+but I point out some issues you might encounter and how to fix them.
 
-Though spell checking is primitive, I show how to install the needed
-Lua filters and later I show how to use them.
+Though spell checking is primitive, we take a look at *aspell*, and I show
+how to install the needed Lua filters and how to use them.
 
 Then we pull this project's files from *github.com* and install them into
 your home directory.  I give a quick overview of the purpose of the provided
 tools and files.
 
-The final section of this guide is an outline of markdown elements.
+(!! I need to add a short 'get-started' example)
 
-<!-- !! I need to add a short get-started example -->
+The final section of this guide is an outline of Markdown elements.
 

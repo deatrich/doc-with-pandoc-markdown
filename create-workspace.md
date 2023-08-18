@@ -66,26 +66,29 @@ The following additional packages will be installed:
 ### Editors
 
 My editor of choice is *gvim* -- that is -- *graphical vim*.  You will need
-to use a decent editor.  It would be painful I think to write markdown
+to use a decent editor.  It would be painful I think to write Markdown
 documentation with a minimalist text editor (like [*nano*][nano] or [*le*][le]).
 
 Perhaps you already have a favourite editor on the Linux platform.  Some
 other text editors in my version of Ubuntu LTS are:
 
-   * pluma
-   * gedit
-   * emacs (emacs-gtk)
+   * pluma (`$ sudo apt install pluma`{.console})
+   * gedit (if not installed then: `$ sudo apt install gedit`{.console})
+   * kate (`$ sudo apt install kate`{.console})
+   * emacs (`$ sudo apt install emacs-gtk`{.console})
 
 I provide help syntax highlighting the *console input/output fenced code*
-for vim/gvim only.  Some people do not care about highlighting fenced code,
-in which case it doesn't matter which editor you use.
+for 'vim/gvim' only, with a few notes as well about 'kate'.  Some people
+do not care about custom highlighting fenced code, in which case it doesn't
+matter which editor you use.
 
 ```console
+// To install graphical vim:
 $ sudo apt install vim-gtk3
 ```
 
-[nano]: https://en.wikipedia.org/wiki/Tar_(computing)
-[le]: https://en.wikipedia.org/wiki/Tar_(computing)
+[nano]: https://help.ubuntu.com/community/Nano
+[le]: https://manpages.ubuntu.com/manpages/impish/man1/le.1.html
 
 ### PDF viewers
 
@@ -93,11 +96,12 @@ I like the *evince* PDF viewer on my Ubuntu desktop.  The 'table of contents'
 outline shows up in the left pane on 'evince', and you can toggle
 it on/off by clicking the 'Side pane' icon in the upper left.
 
-Another PDF viewer is *qpdfview*.  In order to see the 'outline', select
+Another PDF viewer is *qpdfview*.  In order to see the 'outline', select:
 
    View -> Docks -> Outline
 
 ```console
+// Install the PDF viewers:
 $ apt install evince qpdfview
 ```
 
@@ -109,7 +113,7 @@ documents. In order to use the application for commercial purposes,
 and with its full functionality you are required to purchase a license.*
 
 For Ubuntu, Debian and OpenSuse / Red Hat / CentOS you can
-[download a free version][getmasterpdf], and especially if you are interested
+[download a free version][getmasterpdf].  If you are interested
 in using it for more complex reasons like form-filling, PDF document editing
 and digital signing, then buy a license.
 
@@ -128,6 +132,7 @@ master-pdf-editor-5/
 $ mkdir -p ~/bin/mpdf
 $ cp -a master-pdf-editor-5/ ~/bin/mpdf/
 $ cd ~/bin/mpdf/
+// Remove the temporary installation directory
 $ rm -rf ~/temp
 
 $ pwd
@@ -166,13 +171,14 @@ form of spell checking.
 A good editor will offer spell checking as an option; it is typically found
 in a *Tools* menu.  If you decide that your editor's spell checking is
 useful then proceed with it.  Embedded spell checking is available on gvim,
-pluma, emacs and gedit.  It is even better to have spell checking which is
-*markdown-aware*; by that I mean it does not try to spell check inside
-markdown syntax and elements.  You will need to experiment with spell checking.
+pluma, emacs, kate and gedit.  It is even better to have spell checking which
+is *markdown-aware*; by that I mean it does not try to spell check inside
+Markdown syntax and elements.  You will need to experiment with your editor's
+spell checking.
 
 #### Spell checking with native programs
 
-Two widely used Open Source spell checkers are [*aspell*][aspell] and
+Two widely used open source spell checkers are [*aspell*][aspell] and
 [*hunspell*][hunspell].  Both programs have dictionaries in dozens of languages:
 
 ```console
@@ -185,15 +191,16 @@ $ apt list | egrep '^hunspell-' | grep -v tools | wc -l
 
 For markdown-based documentation 'aspell' has a markdown-aware option. I 
 gave it a try and at least for me I found it somewhat useful.
-Here I invoke aspell using the *markdown* mode on a file named *overview.md*:
+Here I invoke 'aspell' using the *Markdown* mode on a file named *overview.md*:
 
 ```console
 $  aspell check --dont-backup --mode=markdown overview.md
 ```
 
-The image below shows a terminal session with aspell:
+Its spell checking is fairly easy to navigate -- the image below
+shows a terminal session with 'aspell':
 
-![*aspell* in markdown mode in a terminal window](aspell.png){#id .class width=60%}
+![*aspell* in Markdown mode in a terminal window](aspell.png){#id .class width=60%}
 
 #### Spell checking with the Lua filter
 
@@ -217,14 +224,23 @@ $ git clone --depth=1 'https://github.com/pandoc/lua-filters'
 $ cd lua-filters
 // optionally update the timestamps of the filters from the git data
 $ ~/bin/git-touch.sh
+```
 
-// copy only the filters to your work area
+You can install only the spell checking file, or you can install all of 
+the filters:
+
+```console
+// The filters need to be installed in your pandoc configuration directory:
 $ mkdir -p ~/.pandoc/filters
-$ cd ~/git/lua-filters
+
+// copy only the spelling filter to your work area
+$ cp -up spellcheck/spellcheck.lua  ~/pandoc/filters/
+
+// or copy all the filters to your work area using 'find' and looping over them:
 $ find . -type f -a  -name \*.lua | \
   while read f ; do \
     echo $f; \
-    cp -au $f ~/.pandoc/filters/; \
+    cp -up $f ~/.pandoc/filters/; \
   done
 $ ls -l ~/.pandoc/filters/*spell*
 /home/myname/.pandoc/filters/spellcheck.lua
@@ -239,7 +255,7 @@ $ pandoc --lua-filter spellcheck.lua overview.md
 docx
 wth
 
-// So I add docx to my personal dictionary:
+// So I add docx to my personal dictionary (and fix the spelling of 'with'):
 $ nano ~/.aspell.en.pws
 $ cat .aspell.en.pws
 $ head ~/.aspell.en.pws 
