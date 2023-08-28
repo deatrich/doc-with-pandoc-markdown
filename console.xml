@@ -28,6 +28,7 @@ and create any file named 'some-file-name.console'
     <contexts>
       <context attribute="Output" name="Output" lineEndContext="#stay" >
         <Detect2Chars char="$" char1=" " attribute="UserComm" context="UserComm 1" column="0"/>
+        <Detect2Chars char="%" char1=" " attribute="cUserComm" context="cUserComm 1" column="0"/>
         <Detect2Chars char="#" char1=" " attribute="RootComm" context="RootComm 1" column="0"/>
         <Detect2Chars char="/" char1="/" attribute="Comment" context="Comment" column="0"/>
         <RegExpr attribute="mysql" context="mysql" String="^mysql> " beginRegion="mysqlreg"/>
@@ -36,6 +37,9 @@ and create any file named 'some-file-name.console'
       </context>
       <context attribute="UserComm" name="UserComm 1" lineEndContext="#pop">
         <LineContinue attribute="UserComm" context="#stay"/>
+      </context>
+      <context attribute="cUserComm" name="cUserComm 1" lineEndContext="#pop">
+        <LineContinue attribute="cUserComm" context="#stay"/>
       </context>
       <context attribute="RootComm" name="RootComm 1" lineEndContext="#pop">
         <LineContinue attribute="RootComm" context="#stay"/>
@@ -52,6 +56,7 @@ and create any file named 'some-file-name.console'
     <itemDatas>
       <itemData name="Output" defStyleNum="dsNormal"/>
       <itemData name="UserComm" defStyleNum="dsKeyword" bold="true"/>
+      <itemData name="cUserComm" defStyleNum="dsKeyword" bold="true"/>
       <itemData name="RootComm" defStyleNum="dsFunction" color="#ff0000" bold="true"/>
       <itemData name="Comment" defStyleNum="dsComment" color="#0000ff"/>
       <itemData name="mysql" defStyleNum="dsDataType" color="#ff00ff" bold="true"/>
