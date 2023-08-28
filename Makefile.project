@@ -1,0 +1,17 @@
+#***************************************************************************
+#
+# Purpose: include file for Makefile -> edit this file for your project
+#
+#***************************************************************************
+
+## Change 'PROJECT' to the name of the target document you are generating:
+PROJECT		= pandoc-markdown-guide
+GENDIR		= "Generated/"
+
+## Change the publication path for your generated files (assuming a local area)
+PUBDIR		= "..//deatrich.github.io/$(PROJECT)/latest-version/"
+
+DOCXVIEWER	= lowriter
+PDFVIEWER	= evince
+HTMLVIEWER	= firefox
+
