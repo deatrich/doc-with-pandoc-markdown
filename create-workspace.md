@@ -78,9 +78,10 @@ other text editors in my version of Ubuntu LTS are:
    * emacs (`$ sudo apt install emacs-gtk`{.console})
 
 I provide help syntax highlighting the *console input/output fenced code*
-for 'vim/gvim' only, with a few notes as well about 'kate'.  Some people
-do not care about custom highlighting fenced code, in which case it doesn't
-matter which editor you use.
+with both 'vim/gvim' and 'kate'.  If you are not documenting console
+input/output then it will not matter which editor you use.  There are after
+all more than 130 computer 'languages' which Pandoc's Markdown is able to
+highlight.
 
 ```console
 // To install graphical vim:
@@ -131,12 +132,13 @@ $ ls -CpF
 master-pdf-editor-5/
 $ mkdir -p ~/bin/mpdf
 $ cp -a master-pdf-editor-5/ ~/bin/mpdf/
-$ cd ~/bin/mpdf/
 // Remove the temporary installation directory
 $ rm -rf ~/temp
 
-$ pwd
-/home/myname/bin/mpdf
+// A few extra libraries are needed to run this program:
+$ sudo apt install libqt5xml5 libqt5concurrent5 
+
+$ cd ~/bin/mpdf/
 $ ls -CpF
 fonts/  license_en.txt     masterpdfeditor5.desktop  stamps/
 lang/   masterpdfeditor5*  masterpdfeditor5.png      templates
@@ -145,9 +147,6 @@ masterpdfeditor5: ELF 64-bit LSB executable, ARM aarch64,
 version 1 (GNU/Linux), dynamically linked, interpreter
 /lib/ld-linux-aarch64.so.1, for GNU/Linux 3.7.0,
 BuildID[sha1]=94ca9680e3f0ae39e622aa4e2ab9cbc9c189e63e, stripped
-
-// A few extra libraries are needed to run this program:
-$ sudo apt install libqt5xml5 libqt5concurrent5 
 
 $ cd
 $ ~/bin/mpdf/masterpdfeditor5 -h
@@ -169,12 +168,12 @@ form of spell checking.
 #### Spell checking in editors
 
 A good editor will offer spell checking as an option; it is typically found
-in a *Tools* menu.  If you decide that your editor's spell checking is
-useful then proceed with it.  Embedded spell checking is available on gvim,
-pluma, emacs, kate and gedit.  It is even better to have spell checking which
-is *markdown-aware*; by that I mean it does not try to spell check inside
-Markdown syntax and elements.  You will need to experiment with your editor's
-spell checking.
+in a *Tools* menu of your favourite editor.  If you decide that your
+editor's spell checking is useful then proceed with it.  Embedded spell
+checking is available on gvim, pluma, emacs, kate and gedit.  It is even
+better to have spell checking which is *markdown-aware*; by that I mean
+it does not try to spell check inside Markdown syntax and elements.  You
+will need to experiment with your editor's spell checking.
 
 #### Spell checking with native programs
 
@@ -213,8 +212,7 @@ It is primitive, but it has a few useful options:
      mistake even though it is simply a list of possibly misspelled words.
 
 Software packages for these filters do not exist (or at least I did not
-find them), so you would need to pull them from github.  Note I also
-[update the file timestamps][git-touch]:
+find them), so you would need to pull them from github:
 
 ```console
 // get the files
@@ -222,8 +220,6 @@ $ mkdir ~/git
 $ cd ~/git
 $ git clone --depth=1 'https://github.com/pandoc/lua-filters'
 $ cd lua-filters
-// optionally update the timestamps of the filters from the git data
-$ ~/bin/git-touch.sh
 ```
 
 You can install only the spell checking file, or you can install all of 
@@ -257,7 +253,6 @@ wth
 
 // So I add docx to my personal dictionary (and fix the spelling of 'with'):
 $ nano ~/.aspell.en.pws
-$ cat .aspell.en.pws
 $ head ~/.aspell.en.pws 
 personal_ws-1.1 en 37
 backticks
@@ -270,8 +265,7 @@ fsck
 ```
 
 [aspell]: https://en.wikipedia.org/wiki/GNU_Aspell
-[aspell-pws]: http://aspell.net/man-html/Format-of-the-Personal-and-Replacement-Dictionaries.html
 [hunspell]: https://en.wikipedia.org/wiki/Hunspell
 [lua]: https://www.lua.org/about.html
-[git-touch]:  https://github.com/deatrich/tools/blob/main/git-touch.sh
+[aspell-pws]: http://aspell.net/man-html/Format-of-the-Personal-and-Replacement-Dictionaries.html
 

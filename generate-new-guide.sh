@@ -74,7 +74,7 @@ fi
 ##  the needed console.xml and editor files
 
 c="../console-syntax"
-if [ ! -d $c] ; then
+if [ ! -d $c ] ; then
   err_exit "'$c' directory is missing.  Please clone or copy it"
 else
   \cp -vp $c"/console.xml" $c"/vim.ftdetect" $c"/vim.syntax" $c"/vimrc.example" .
@@ -170,6 +170,6 @@ if [ $? -ne 0 ] ; then
   err_exit "Failed to copy md_templates/guide-template.md to $dir/$destfile"
 fi
 
-echo "Done.  Do not forget to modify 'metadata.md' and possible 'Makefile.project'"
+echo "Done.  Do not forget to modify 'metadata.md' and possibly 'Makefile.project'"
 echo "Please visit $dir/"
 

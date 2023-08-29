@@ -79,8 +79,8 @@ by a sequence of 3 or more backticks or tildes.  All text inside the fence
 is rendered as-is, without interpretation by the Markdown processor.
 
 Moreover, the code block can be marked by an attribute that labels the kind
-of code inside the fence.  In this guide I use the *console* attribute, as 
-discussed in !! to be linked.
+of code inside the fence.  In this guide I use the [*console*][console-syntax] 
+attribute.
 
 +-----------------------+-----------------------+------------------------+
 | Element               | Markdown              | Output                 |
@@ -168,7 +168,7 @@ are *grid tables*.  Note that tables might confuse your editor if it is
 trying to do syntax highlighting -- that has been my experience with gvim
 at least.
 
-Generally speaking tables are always a bit fussy to create in many document
+Generally speaking, tables are a bit fussy to create in many document
 types.  I wrote a [shell script to generate empty grid tables](#i-tabscript)
 that makes it a bit easier to get started with a table.
 
@@ -224,7 +224,7 @@ To generate a note or footnote, the caret character -- **^** -- is used:
 |(a reference is needed)| Footnote Eg[^note]    | Footnote Eg[^note]    |
 |                       | ```                   |                       |
 +-----------------------+-----------------------+-----------------------+
-| (This is the          | ```                   |(Look for me further below)|
+| (This is the          | ```                   |(See me at page bottom)|
 | footnote reference)   | [^note]: I am here..  |                       |
 |                       | ```                   | [^note]: I am here..  |
 +-----------------------+-----------------------+-----------------------+
@@ -234,9 +234,9 @@ Odd elements:
  YAML metadata blocks
 -->
 
-## Inline elements:
+## Inline elements
 
-### Formatting elements:
+### Formatting elements
 
 These elements alter the appearance of enclosed words or phrases:
 
@@ -281,7 +281,7 @@ These elements alter the appearance of enclosed words or phrases:
 +-----------------------+-----------------------+--------------------+
 
 
-### Links:
+### Links
 
 There are two kinds of links:
 
@@ -299,14 +299,14 @@ Links to internal document information
 | Element  | Markdown                   | Output                    |
 +:========:+:===========================+:==========================+
 |**External| ```                        |                           |
-| Links**  | Try out [this link][tiny]  | Try out [this link][tiny] |
+| Link**   | Try out [this link][tiny]  | Try out [this link][tiny] |
 | with a   |                            |                           |
 | label    |                            |                           |
 |          | [tiny]: https://t.ly/      | [tiny]: https://t.ly/     |
 |          | ```                        |                           |
 +----------+----------------------------+---------------------------+
 |**Internal| ```                        |                           |
-| Links**  | Look at [topic X](#top-x)  | Look at [topic X](#top-x) |
+| Link**   | Look at [topic X](#top-x)  | Look at [topic X](#top-x) |
 |          |                            |                           |
 |          | (later in the document)    |                           |
 |          |                            |                           |
@@ -317,12 +317,22 @@ Links to internal document information
 
 ### Images
 
+The *docx* output format does not handle scaling of images in the output
+presentation.  The first image is 640x480 pixels; the second is 128x96 pixels.
+Both images are properly presented with *html* and *pdf* output formats.
+
 +----------+----------------------------+-------------------------------+
 | Element  | Markdown                   | Output                        |
 +:========:+:===========================+:==============================+
 |**Image** | ```                        |                               |
 |          |                            |                               |
-|          |![Pi](image.png){width=25ex}| ![Pi](image.png){width=25ex}  |
+|          |![Pi](dood.png){width=100%} | ![Pi](dood.png){width=100%}   |
+|          |                            |                               |
+|          | ```                        |                               |
++----------+----------------------------+-------------------------------+
+|**Image** | ```                        |                               |
+| *scaled* |                            |                               |
+|          |![Pi](dood2.png){width=100%}| ![Pi](dood2.png){width=100%}  |
 |          |                            |                               |
 |          | ```                        |                               |
 +----------+----------------------------+-------------------------------+
