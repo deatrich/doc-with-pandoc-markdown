@@ -23,12 +23,17 @@ This is a work in progress:
 - [x] Document the initial client software installation
 - [x] Document support tools installation and configuration
 - [x] Describe all support files
-- [ ] Finish documentation of *console* fenced code usage
-- [ ] Document editor setup and issues
+- [x] Moved *console* fenced code and editor setup and issues to \
+ https://github.com/deatrich/console-syntax
 - [x] Add additional topics like spell-checking
 - [x] Write a chapter on using Pandoc with Markdown examples
+- [ ] Add this project to https://deatrich.github.io/
+- [ ] Add *odt* output to the project
+- [ ] Add some scripts to create lists of links, lists of commands, etc^[egs]
+
 
 [home-server]: https://github.com/deatrich/linux-home-server/
 [mygithub.com]: https://github.com/deatrich/doc-with-pandoc-markdown/
 [mygithub.io]: https://deatrich.github.io/doc-with-pandoc-markdown/
 
+[^egs]: Example: use awk to count number of console segments and the list of commands, list of sudo commands, etc.
