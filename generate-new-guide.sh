@@ -70,14 +70,28 @@ if [ ! -f Makefile ] ; then
   err_exit "You need to be in the original project directory for this to work"
 fi
 
-files="custom-highlight.theme metadata.md Makefile"
-files=$files" console.xml style.css template.htm template.latex"
+## Check to see if ../console-syntax/ directory is there; and then copy 
+##  the needed console.xml and editor files
 
-editorfiles="console.vim .vimrc.example"
+c="../console-syntax"
+if [ ! -d $c] ; then
+  err_exit "'$c' directory is missing.  Please clone or copy it"
+else
+  \cp -vp $c"/console.xml" $c"/vim.ftdetect" $c"/vim.syntax" $c"/vimrc.example" .
+  if [ $? -ne 0 ] ; then
+    err_exit "copy of xml and editor files in '$c' failed"
+  fi
+fi
+
+files="custom-highlight.theme metadata.md metadata-docx.md Makefile"
+files=$files" console.xml style.css template.htm template.latex"
+files=$files" Makefile.project custom-reference.docx overview.md"
+
+editorfiles="vim.syntax vim.ftdetect vimrc.example"
 
 md_templates="guide-template.md chapter-template.md"
 
-misc_files="generate-tables.sh"
+scriptfiles="generate-table.sh"
 
 #modfiles="Makefile"
 
@@ -98,6 +112,11 @@ if [ $? -ne 0 ] ; then
   err_exit "mkdir '$dir/editorfiles' failed"
 fi
 
+mkdir -p "$dir/scriptfiles"
+if [ $? -ne 0 ] ; then
+  err_exit "mkdir '$dir/scriptfiles' failed"
+fi
+
 mkdir -p "$dir/md_templates"
 if [ $? -ne 0 ] ; then
   err_exit "mkdir '$dir/md_templates' failed"
@@ -110,10 +129,17 @@ for f in $files ; do
   fi
 done
 
-for f in $editorfiles $misc_files ; do
+for f in $editorfiles ; do
   cp -p "$f" "$dir/editorfiles"/
   if [ $? -ne 0 ] ; then
     err_exit "copy of '$f' to $dir/editorfiles/ failed"
+  fi
+done
+
+for f in $scriptfiles ; do
+  cp -p "$f" "$dir/scriptfiles"/
+  if [ $? -ne 0 ] ; then
+    err_exit "copy of '$f' to $dir/scriptfiles/ failed"
   fi
 done
 
@@ -124,14 +150,15 @@ for f in $md_templates ; do
   fi
 done
 
-## alter Makefile by changing value of 'PROJECT'
-sed -i "s/pandoc-markdown-guide/$file/" "$dir"/Makefile
+## alter Makefile.project by changing value of 'PROJECT'
+sed -i "s/pandoc-markdown-guide/$file/" "$dir"/Makefile.project
 if [ $? -ne 0 ] ; then
-  err_exit "Change to Makefile failed"
+  err_exit "Change to Makefile.project failed"
 fi
 
 ## truncate contents.txt
 echo "metadata.md" >  "$dir"/contents.txt
+echo "overview.md" >>  "$dir"/contents.txt
 if [ $? -ne 0 ] ; then
   err_exit "Change to contents.txt failed"
 fi
@@ -143,6 +170,6 @@ if [ $? -ne 0 ] ; then
   err_exit "Failed to copy md_templates/guide-template.md to $dir/$destfile"
 fi
 
-echo "Done.  Do not forget to modify 'metadata.md'"
+echo "Done.  Do not forget to modify 'metadata.md' and possible 'Makefile.project'"
 echo "Please visit $dir/"
 
