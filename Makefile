@@ -1,43 +1,43 @@
 #***************************************************************************
-# $Id$
 #
-# Purpose: makefile for doc. --> generate html and pdf files from an md file
-#
+# Purpose: makefile for generating Pandoc documentation from Markdown
+#	   The only definition you might need to change is 'TARGETS'
+# 
 #***************************************************************************
 
 #***************************************************************************
+# It is important to include this file containing important definitions:
+include Makefile.project
+
 .SUFFIXES : .md .html .pdf .docx
-#.SILENT :
 
 #***************************************************************************
-## get object file names from source file names
 
-## Change 'PROJECT' to the name of the target document you are generating:
-PROJECT		= pandoc-markdown-guide
 FILELIST	= contents.txt
-GENDIR		= "Generated/"
-
-## Change the publication path for your generated files (assuming a local area)
-PUBDIR		= "/path/to/$(PROJECT)/latest-version/"
 
 MDFILE		= $(PROJECT).md
 MDFILES		= $(shell cat ${FILELIST})
+
+COMMONFILES	= console.xml custom-highlight.theme contents.txt
+
+## get object file names from source file names
 DOCXOBJECT	= $(MDFILE:.md=.docx)
 HTMLOBJECT	= $(MDFILE:.md=.html)
 PDFOBJECT	= $(MDFILE:.md=.pdf)
-DOCXVIEWER	= lowriter
-PDFVIEWER	= evince
-HTMLVIEWER	= firefox
+
+## Remove any object(s) from 'TARGETS' to avoid generating them
+TARGETS		= $(HTMLOBJECT) $(DOCXOBJECT) $(PDFOBJECT)
 
 #***************************************************************************
-PRINTOPT	= 
 PANDOC_OPTS	= --toc --toc-depth=3 --syntax-definition=console.xml \
 		  --highlight-style=custom-highlight.theme
 
 PANDOC_DOCX_OPTS = --reference-doc=custom-reference.docx \
-		  -V lastupdate="`date +'%d %B %Y'`"
+		   -V lastupdate="`date +'%d %B %Y'`" \
+		   --metadata-file=metadata-docx.md
 
-PANDOC_HTML_OPTS = -c https://latex.now.sh/style.css -c style.css \
+PANDOC_HTML_OPTS = -c https://latex.now.sh/style.css \
+		   -c https://deatrich.github.io/style.css \
 		   --template template.htm -V lastupdate="`date +'%d %B %Y'`"
 
 PANDOC_PDF_OPTS	= --template=template.latex -V geometry:margin=2cm \
@@ -47,7 +47,7 @@ PANDOC_PDF_OPTS	= --template=template.latex -V geometry:margin=2cm \
 ## DEFAULT GOAL
 
 ## Remove any target from the 'all' rule to avoid generating it
-all:	$(HTMLOBJECT) $(PDFOBJECT) $(DOCXOBJECT)
+all:	$(TARGETS)
 
 test:
 	@echo "Top file: $(MDFILE)"
@@ -56,14 +56,11 @@ test:
 #***************************************************************************
 ## DEPENDENCIES
 
-$(HTMLOBJECT): $(MDFILES) template.htm console.xml custom-highlight.theme \
-			 contents.txt style.css
+$(HTMLOBJECT): $(MDFILES) template.htm $(COMMONFILES)
 
-$(PDFOBJECT): $(MDFILES) template.latex console.xml custom-highlight.theme \
-			 contents.txt
+$(PDFOBJECT): $(MDFILES) template.latex $(COMMONFILES)
 
-$(DOCXOBJECT): $(MDFILES) console.xml custom-highlight.theme \
-			 contents.txt
+$(DOCXOBJECT): $(MDFILES) $(COMMONFILES) metadata-docx.md
 
 #***************************************************************************
 ## GENERAL RULES
@@ -83,15 +80,24 @@ showpdf: $(PDFOBJECT)
 showdocx: $(DOCXOBJECT)
 	$(DOCXVIEWER) $(DOCXOBJECT)
 
-copies: $(PDFOBJECT) $(HTMLOBJECT)
-	cp -up $(PDFOBJECT) $(GENDIR)$(PDFOBJECT) 
-	cp -up $(HTMLOBJECT) $(GENDIR)$(HTMLOBJECT) 
+copies: $(TARGETS)
+	@if test -d $(GENDIR) ; then \
+	  for i in $(TARGETS) ; do \
+             if [ -f "$$i" ] ; then \
+	        cp -vup "$$i" $(GENDIR) ; \
+             fi; \
+	  done; \
+	else \
+	  echo "Missing publishing directory: $(GENDIR)"; \
+	fi
 
-publish: $(PDFOBJECT) $(HTMLOBJECT)
+publish: $(TARGETS)
 	@if test -d $(PUBDIR) ; then \
-	  cp -iup $(PDFOBJECT) $(PUBDIR)$(PDFOBJECT); \
-	  cp -iup $(HTMLOBJECT) $(PUBDIR)$(HTMLOBJECT); \
-	  cp -iup $(DOCXOBJECT) $(PUBDIR)$(DOCXOBJECT); \
+	  for i in $(TARGETS) ; do \
+            if [ -f "$$i" ] ; then \
+	      cp -viup "$$i" $(PUBDIR) ; \
+            fi; \
+	  done; \
 	else \
 	  echo "Missing publishing directory: $(PUBDIR)"; \
 	fi
@@ -121,5 +127,9 @@ help:
 
 ## manually clean up generated files from time to time
 clean:
-	-rm -i *.html *.pdf $(PROJECT).docx
+	@for i in $(TARGETS) ; do \
+           if [ -f "$$i" ] ; then \
+	      rm -i "$$i" ; \
+           fi; \
+	done
 
