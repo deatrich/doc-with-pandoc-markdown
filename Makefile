@@ -33,8 +33,7 @@ PANDOC_OPTS	= --toc --toc-depth=3 --syntax-definition=console.xml \
 		  --highlight-style=custom-highlight.theme
 
 PANDOC_DOCX_OPTS = --reference-doc=custom-reference.docx \
-		   -V lastupdate="`date +'%d %B %Y'`" \
-		   --metadata-file=metadata-docx.md
+		   -V lastupdate="`date +'%d %B %Y'`"
 
 PANDOC_HTML_OPTS = -c https://latex.now.sh/style.css \
 		   -c https://deatrich.github.io/style.css \
@@ -60,7 +59,7 @@ $(HTMLOBJECT): $(MDFILES) template.htm $(COMMONFILES)
 
 $(PDFOBJECT): $(MDFILES) template.latex $(COMMONFILES)
 
-$(DOCXOBJECT): $(MDFILES) $(COMMONFILES) metadata-docx.md
+$(DOCXOBJECT): $(MDFILES) $(COMMONFILES)
 
 #***************************************************************************
 ## GENERAL RULES
