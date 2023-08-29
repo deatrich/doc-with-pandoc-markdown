@@ -6,10 +6,26 @@ When combined with the capabilities of the [Pandoc][pandoc] command set then
 many options exist for generating elegant documents from a Markdown document.
 
 Though [many output formats][pandoc-formats] are possible with Pandoc, the
-tools provided with this guide provide generated *html* and *pdf* output.
-As well, *docx* output is provided with the tools.  However, control over
-the formatting of the console session output is limited in the generated docx
-guide.  If I find a way around it I will provide updates.
+tools provided with this guide generate *html*, *pdf* and *docx* output.
+
+There are some issues with 'docx' documents (!! I need to check some of these
+points with MS Word once I borrow a laptop from the family):
+
+   * A *table of contents* is not generated for Libreoffice/Openoffice.
+     You must open the document in your word processor and ask it to 
+     generate a table of contents.
+
+   * If you wish to modify the default document style then you can either
+     modify the style of the reference docx file using your word processor,
+     or you can unpack the reference document, modify the *styles.xml* file,
+     and the repack the document.  I describe [how to unpack the reference
+     file](#i-docxref) further in this document.
+
+   * Images are not elegantly scaled in the docx presentation.  Therefore
+     you need to adjust images to fit the required placement.
+
+   * You will need to enable a footer in the page style and add the page
+     number for page numbering.
 
 These tools focus on writing computer technical documentation; however 
 they can easily be adapted for other purposes, like writing presentation
@@ -38,9 +54,12 @@ issues under the 'Issues' tab [on the project page][thisproject].
 ## About this Document
 
 In this guide command-line sessions appear in a pale-yellow box, using a 
-customized *.console* syntax highlighting convention as described in the 
-next chapter.  Two kinds of simplified command-line prompts appear.
-As well, explanatory comments starting with two slashes are coloured blue:
+customized *.console* syntax highlighting convention described in my
+[*console syntax highlighting* project][console-syntax].
+
+Simplified command-line prompts have syntax highlighting.
+As well, explanatory comments starting with two slashes are italicized
+and are coloured blue:
 
 ```console
 // Usually your prompt would be more complex, something like this:
@@ -55,8 +74,8 @@ $ some-command
 # some-other-command
 ```
 
-Recently I added a few more console commands which offer their own
-command-line shell, like *mysql*, *mariadb* and *virsh*:
+A few other command-line programs with a shell-like interface 
+-- *mysql*, *mariadb* and *virsh* -- also have syntax highlighting:
 
 ```console
 // mariadb session:
@@ -103,6 +122,38 @@ Sometimes a double-exclamation (**!!**) mark might appear somewhere -- this
 is only a reminder for myself to fix an issue at that point in the
 documentation.  These reminders will eventually disappear.
 
+You can of course use syntax highlighting for various languages in Pandoc's
+Markdown.  Here is an example of a bash script:
+
+```sh
+#!/bin/bash -e
+
+unalias -a
+PATH=/usr/bin:/bin
+
+## get the timestamp from the file argument and apply it
+update_file_timestamp() {
+  file_time=$(git log -1 --pretty=format:%ai "$1")
+  touch -d "$file_time" "$1"
+}
+
+OLD_IFS=$IFS
+IFS=$'\n'
+
+for file in `git ls-files`
+do
+  if [ -f "$file" ] ; then  ## check for file existence
+    update_file_timestamp "$file"
+  fi
+done
+
+IFS=$OLD_IFS
+
+git update-index --refresh
+```
+
+[console-syntax]: https://deatrich.github.io/console-syntax/
+
 ## Guide outline
 
 In this guide I cover the following topics.  It should be enough to get
@@ -110,17 +161,17 @@ you started writing documentation in Markdown.
 
 We start by setting up your workspace.  We install Pandoc, as well as my
 favourite editor (or your favourite editor) and a few PDF viewers.  Other
-viewers like Firefox and LibreOffice are typically already installed,
-but I point out some issues you might encounter and how to fix them.
+viewers like Firefox and LibreOffice are typically already installed.
 
 Though spell checking is primitive, we take a look at *aspell*, and I show
 how to install the needed Lua filters and how to use them.
 
-Then we pull this project's files from *github.com* and install them into
-your home directory.  I give a quick overview of the purpose of the provided
-tools and files.
+Then we pull the files from this project and from the 'console syntax' project
+on *github.com* and install them into your home directory.  We also test
+the installation by running 'make' on the initial generated project.
 
-(!! I need to add a short 'get-started' example)
+I give a quick overview of the purpose of the provided tools and files.
 
-The final section of this guide is an outline of Markdown elements.
+The final section of this guide is an outline of Markdown elements so that
+you have a quick start on common Markdown elements.
 
