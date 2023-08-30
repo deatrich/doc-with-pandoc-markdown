@@ -151,7 +151,7 @@ for f in $md_templates ; do
 done
 
 ## alter Makefile.project by changing value of 'PROJECT'
-sed -i "s/pandoc-markdown-guide/$file/" "$dir"/Makefile.project
+sed -i "s/doc-with-pandoc-markdown/$file/" "$dir"/Makefile.project
 if [ $? -ne 0 ] ; then
   err_exit "Change to Makefile.project failed"
 fi

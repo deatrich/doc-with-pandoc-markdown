@@ -5,11 +5,11 @@
 #***************************************************************************
 
 ## Change 'PROJECT' to the name of the target document you are generating:
-PROJECT		= pandoc-markdown-guide
+PROJECT		= doc-with-pandoc-markdown
 GENDIR		= "Generated/"
 
 ## Change the publication path for your generated files (assuming a local area)
-PUBDIR		= "..//deatrich.github.io/$(PROJECT)/latest-version/"
+PUBDIR		= "../deatrich.github.io/$(PROJECT)/latest-version/"
 
 DOCXVIEWER	= lowriter
 PDFVIEWER	= evince
