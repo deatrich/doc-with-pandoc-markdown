@@ -3,7 +3,7 @@
 
 ## Getting the files
 
-The files provided with this project can be downloaded from these two relevant
+The files provided with this project can be downloaded from these two required
 projects found on 'github':
 
    * [https://github.com/deatrich/doc-with-pandoc-markdown][thisproject]
@@ -103,7 +103,6 @@ their purpose.
      * [guide-template.md](#i-guide)
      * [chapter-template.md](#i-chapter)
      * [metadata.md](#i-metadata)
-     * [metadata-docx.md](#i-metadata-docx)
 
   * Pandoc templates affecting document content and presentation:
      * [template.htm](#i-temphtm)
@@ -321,8 +320,9 @@ Then you can use your word processor and modify the document styles.  Note
 that only modifications that impact the document style are used; any other
 kind of modification will be ignored by Pandoc.
 
-The provided 'custom-reference.docx' file was modified directly; here are the
-modifications made:
+The provided 'custom-reference.docx' file was modified directly. Here are the
+instructions for unpacking the docx file, modifying the styles, and re-zipping
+the reference file:
 
 ```console
 // Start by unzipping the file so that you can access 'styles.xml'
@@ -352,6 +352,8 @@ $ mv styles.xml.new styles.xml
 // we used ~/styles/
 $ pwd
 /home/myname/styles/
+
+// place the docx file above the current directory:
 $ zip -r ../custom-reference-new.docx *
 ```
 Here are the XML changes made to the supplied 'custom-reference.docx' file:
@@ -406,24 +408,22 @@ Here are the XML changes made to the supplied 'custom-reference.docx' file:
       <w:spacing w:before="480" w:after="0" />
 ```
 
-<!-- , and contains the following modifications. -->
-
 ### Files which control style
 
 #### *style.css* {#i-css}
 
-Only for HTML (and EPUB) output you can provide your own CSS[^css] files. 
-You can add as many style sheets as you want simply by adding multiple
+You can provide your own CSS[^css] files for HTML (and EPUB) output.
+Add as many style sheets as you want simply by adding multiple
 *-c* options:
 
    *-c thisfile.css -c SOME_URL -c anotherfile.css*
 
-Remember that later stylesheets can override previous stylesheet items when
+Remember that later style sheets can override previous style sheet items when
 the same element's style is defined; therefore order is important.
 
-The included *makefile* uses the following css style file order.  I rather like
-[this latex-like css style][latex-css] file.  You can obviously update the
-Makefile and use other style files which you prefer.
+The included *makefile* uses the following CSS style file order.  I rather like
+[this latex-like CSS style file from *latex.now.sh*][latex-css].  You can
+obviously update the Makefile and use other style files which you prefer.
 
 ```console
 $ pandoc ... -c https://latex.now.sh/style.css -c style.css ...
@@ -437,8 +437,8 @@ $ pandoc ... -c https://latex.now.sh/style.css -c style.css ...
 
 Pandoc allows you to add syntax highlighting to enhance and differentiate
 the syntax in computer languages, scripting or other relevant digital output.
-Highlighted text immediately clarifies the different functionality in the
-target text.
+Highlighted text visually clarifies the different functionality in the target
+text.
 
 You can get a list of the languages which Pandoc can present with syntax
 highlighting:
@@ -460,10 +460,11 @@ xorg
 xslt
 ```
 
-And there are 8 different styles.  To see the effect of these styles see
-[Garrick's examples][syntax-highlight-styles].
+There are 8 different syntax highlighting styles provided by Pandoc.  To see
+the effect of these styles, see [Garrick's examples][syntax-highlight-styles].
 
 ```console
+// The default syntax highlighting style is 'pygments'.
 $ pandoc --list-highlight-styles
 pygments
 tango
@@ -479,10 +480,11 @@ haddock
 
 But you can also add your own syntax highlighting rules and styles, which
 is what I have done.  I introduced a new syntax highlighting mode for
-command-line sessions for Markdown documents which is named **console**.
+command-line sessions for Markdown documents which is named
+[*console*][console-syntax].
 
-Then *pandoc* consumes these 2 files and generates the new highlighting in 
-target documents:
+Then *pandoc* consumes the following 2 files and generates the new
+highlighting in target documents:
 
 ```console
 $ pandoc ... --syntax-definition=console.xml --highlight-style=custom-highlight.theme ...
@@ -492,6 +494,13 @@ $ pandoc ... --syntax-definition=console.xml --highlight-style=custom-highlight.
 
 This file describes how some console text strings are recognized, and assigns a 
 pre-defined style to them.
+
+This same file can be used to configure the [Kate][kate] editor so that it is
+able to do this custom syntax highlighting.  See the console syntax highlighting
+project for information on [configuring the Kate editor][console-link-kate].
+
+[kate]: https://kate-editor.org/
+[console-link-kate]: https://deatrich.github.io/console-syntax/index.html#kate
 
 #### *custom-highlight.theme* {#i-theme}
 
@@ -508,45 +517,9 @@ I have created a syntax configuration file for [vim and gvim][vim], my
 editors of choice.  At version 8.2 the editor recognizes over 600 
 computer languages, scripts and console input/output.
 
-#### Set syntax for 'console' I/O:  *vim.syntax* and *vim.ftdetect* {#i-vimsyn}
-
-Install these files into *~/.vim/:
-
-```console
-$ mkdir -p ~/.vim/ftdetect  ~/.vim/syntax
-
-$ cp -p /path/to/vim.ftdetect ~/.vim/ftdetect/console.vim
-$ cp -p /path/to/vim.syntax ~/.vim/syntax/console.vim
-```
-
-This simple syntax definition file works because it piggybacks on the
-existing *Markdown* syntax highlighting file that vim uses:
-
-```console
-// 
-$ head /usr/share/vim/vim82/syntax/markdown.vim 
-" Vim syntax file
-" Language:     Markdown
-" Maintainer:   Tim Pope <vimNOSPAM@tpope.org>
-" Filenames:    *.markdown
-" Last Change:  2020 Jan 14
-...
-```
-
-#### Example **~/.vimrc** configuration file: *vimrc.example* {#i-vimrc}
-
-The *vimrc.example* is a minimal startup file that should be renamed or
-added to your current vim configuration file which is named *~/.vimrc*
-
-For the *console.vim* file to work in a vim editor when editing
-Markdown files you need to add it to the array of Markdown fenced languages;
-that is:
-
-```console
-$ cat ~/.vimrc
-...
-let g:markdown_fenced_languages = ['console', 'sh', 'php', 'mysql', 'css']
-```
+See the console syntax highlighting project for information
+on [configuring vim editors][console-link-vim].
 
 [vim]: https://en.wikipedia.org/wiki/Vim_(text_editor)
+[console-link-vim]: https://deatrich.github.io/console-syntax/index.html#vim
 

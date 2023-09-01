@@ -180,7 +180,7 @@ Here is a modified table borrowed from the [Pandoc manual][pandoc-tables].
 It also contains alignment hints.  Alignment (left, centre, right) in
 Markdown is indicated by the *colon* character at the upper edge of the
 first row in the table.  So in the following table the left column is
-left-aligned, the center column is centred, and the right column is
+left-aligned, the centre column is centred, and the right column is
 right aligned:
 
 +--------------+------------+-------------+

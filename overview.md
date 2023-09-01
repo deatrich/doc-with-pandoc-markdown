@@ -163,8 +163,8 @@ We start by setting up your workspace.  We install Pandoc, as well as my
 favourite editor (or your favourite editor) and a few PDF viewers.  Other
 viewers like Firefox and LibreOffice are typically already installed.
 
-Though spell checking is primitive, we take a look at *aspell*, and I show
-how to install the needed Lua filters and how to use them.
+Though spell checking is primitive, we take a look at *aspell*, and I also show
+how to install the spell-checking Lua filter and how to use it.
 
 Then we pull the files from this project and from the 'console syntax' project
 on *github.com* and install them into your home directory.  We also test
@@ -174,4 +174,22 @@ I give a quick overview of the purpose of the provided tools and files.
 
 The final section of this guide is an outline of Markdown elements so that
 you have a quick start on common Markdown elements.
+
+## Where to find this guide
+
+HTML, DOCX and PDF versions of this guide can be found at:
+
+HTML:
+: [https://deatrich.github.io/doc-with-pandoc-markdown/current/doc-with-pandoc-markdown.html][html]
+
+PDF:
+: [https://deatrich.github.io/doc-with-pandoc-markdown/current/doc-with-pandoc-markdown.pdf][pdf]
+
+DOCX:
+: [https://deatrich.github.io/doc-with-pandoc-markdown/current/doc-with-pandoc-markdown.docx][docx]
+
+[html]: https://deatrich.github.io/doc-with-pandoc-markdown/current/doc-with-pandoc-markdown.html
+[pdf]: https://deatrich.github.io/doc-with-pandoc-markdown/current/doc-with-pandoc-markdown.pdf
+[docx]: https://deatrich.github.io/doc-with-pandoc-markdown/current/doc-with-pandoc-markdown.docx
+\
 
