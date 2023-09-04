@@ -1,5 +1,5 @@
 <!-- -->
-# Creating a Pandoc workspace
+# Creating a Pandoc workspace {#chapter-2}
 
 An installation of Pandoc along with the requisite latex support files 
 is needed.  In this document I install Pandoc on Ubuntu LTS 22.04.  Other

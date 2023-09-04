@@ -36,5 +36,19 @@ h2 {
     border-bottom: 1px solid LightGray;
 }
 
+/*
+ * https://latex.vercel.app/style.css centres dl/dd elements for equations -->
+ */
+dl dd {
+  text-align: left;
+}
+dd {
+  padding-left: 10px;
+  padding-bottom: 5px;
+}
+dt {
+  font-weight: bold;
+}
+
 div.sourceCode { box-shadow: 2px 6px #888888; }
 

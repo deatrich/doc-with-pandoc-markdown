@@ -1,5 +1,5 @@
 <!-- -->
-# Examples of Pandoc's Markdown usage
+# Examples of Pandoc's Markdown usage {#chapter-4}
 
 There are many resources about using Pandoc's Markdown flavour; here are
 some detailed links to look at:

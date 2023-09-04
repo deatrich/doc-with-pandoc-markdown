@@ -1,5 +1,5 @@
 <!-- -->
-# Installing the project files
+# Installing the project files {#chapter-3}
 
 ## Getting the files
 
@@ -138,7 +138,7 @@ it into your PATH - normally this means you copy it into ~/bin/
 $ cp -p /path/to/generate-table.sh ~/bin/
 $ chmod 755 ~/bin/generate-table.sh
 // We create a table 1 row by 3 columns, 60 chars wide. Row height is 3 chars
-$ /generate-table.sh -r 1 -c 3  -w 60 -rh 3 -header yes
+$ ./generate-table.sh -r 1 -c 3  -w 60 -rh 3 -header yes
 +--------------------+--------------------+--------------------+
 |                    |                    |                    |
 +====================+====================+====================+

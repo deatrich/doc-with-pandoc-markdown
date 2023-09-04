@@ -83,7 +83,7 @@ else
   fi
 fi
 
-files="custom-highlight.theme metadata.md metadata-docx.md Makefile"
+files="custom-highlight.theme metadata.md Makefile"
 files=$files" console.xml style.css template.htm template.latex"
 files=$files" Makefile.project custom-reference.docx overview.md"
 

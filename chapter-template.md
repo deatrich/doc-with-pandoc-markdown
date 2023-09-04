@@ -1,4 +1,4 @@
-<!-- HTML Comments are never visible -->
+<!-- HTML Comments are never visible EXCEPT in generated HTML output -->
 # This Is the Chapter/Section Title
 
 Introductory remarks are here.  This is a small template file that

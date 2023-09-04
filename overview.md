@@ -1,5 +1,5 @@
 <!-- -->
-# Overview
+# Overview {#chapter-1}
 
 Documenting with the [Markdown language][md] is wonderfully simple and clean.
 When combined with the capabilities of the [Pandoc][pandoc] command set then
@@ -172,8 +172,26 @@ the installation by running 'make' on the initial generated project.
 
 I give a quick overview of the purpose of the provided tools and files.
 
-The final section of this guide is an outline of Markdown elements so that
+The next section of this guide is an outline of Markdown elements so that
 you have a quick start on common Markdown elements.
+
+An extra final chapter was added to illustrate that a complete Markdown-based
+document can be used as a data source to generate yet another form of
+information in the final document.  In this case, a few scripts find all
+*console* command-line fenced code blocks and extracts a list of all common
+commands used in the document.  The output is inserted into the last chapter.
+Of course, the one-line definitions of these commands was added
+manually.  It might have been possible to pipe man-page information for
+each command and fill that in as well: 
+
+```
+$ for i in cp ls git ... ; do
+> man $i | head -4 | tail -1
+> done
+       cp - copy files and directories
+       ls - list directory contents
+       git - the stupid content tracker
+```
 
 ## Where to find this guide
 
