@@ -3,3 +3,6 @@ overview.md
 create-workspace.md
 setup-files.md
 using-markdown.md
+command-list.md
+commands.md
+
