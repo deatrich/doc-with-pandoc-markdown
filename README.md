@@ -12,10 +12,10 @@ the document (like definition lists) may not render correctly in the
 Github flavour.  Nevertheless, you can still 
 [browse Markdown files in GitHub][mygithub.com].
 
-Recent [Pandoc-generated HTML and PDF files][mygithub.io] will be available
+Recent Pandoc-generated HTML, DOCX and PDF files are available
 on my github.io site at:
 
-  https://deatrich.github.io/doc-with-pandoc-markdown/
+  [https://deatrich.github.io/doc-with-pandoc-markdown/][mygithub.io]
 
 This is a work in progress:
 
