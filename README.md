@@ -13,7 +13,9 @@ Github flavour.  Nevertheless, you can still
 [browse Markdown files in GitHub][mygithub.com].
 
 Recent [Pandoc-generated HTML and PDF files][mygithub.io] will be available
-on my github.io site -- they are not there yet.
+on my github.io site at:
+
+  https://deatrich.github.io/doc-with-pandoc-markdown/
 
 This is a work in progress:
 
@@ -27,10 +29,10 @@ This is a work in progress:
  https://github.com/deatrich/console-syntax
 - [x] Add additional topics like spell-checking
 - [x] Write a chapter on using Pandoc with Markdown examples
-- [ ] Add this project to https://deatrich.github.io/
+- [x] Add this project to https://deatrich.github.io/
 - [ ] Add *odt* output to the project
-- [ ] Add some scripts to create lists of links, lists of commands, etc^[egs]
-
+- [x] Add some scripts to create lists of commands, etc^[egs]
+- [ ] Add some scripts to create lists of external links found in a document
 
 [home-server]: https://github.com/deatrich/linux-home-server/
 [mygithub.com]: https://github.com/deatrich/doc-with-pandoc-markdown/
