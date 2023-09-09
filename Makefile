@@ -1,7 +1,6 @@
 #***************************************************************************
 #
 # Purpose: makefile for generating Pandoc documentation from Markdown
-#	   The only definition you might need to change is 'TARGETS'
 # 
 #***************************************************************************
 
@@ -18,7 +17,7 @@ FILELIST	= contents.txt
 MDFILE		= $(PROJECT).md
 MDFILES		= $(shell cat ${FILELIST})
 
-COMMONFILES	= console.xml custom-highlight.theme contents.txt
+COMMONFILES	= console.xml custom-highlight.theme contents.txt $(IMAGES)
 
 ## get object file names from source file names
 DOCXOBJECT	= $(MDFILE:.md=.docx)
@@ -81,10 +80,10 @@ showdocx: $(DOCXOBJECT)
 
 copies: $(TARGETS)
 	@if test -d $(GENDIR) ; then \
-	  for i in $(TARGETS) ; do \
-             if [ -f "$$i" ] ; then \
-	        cp -vup "$$i" $(GENDIR) ; \
-             fi; \
+	  for i in $(TARGETS) $(IMAGES) ; do \
+            if [ -f "$$i" ] ; then \
+	      cp -vup "$$i" $(GENDIR) ; \
+            fi; \
 	  done; \
 	else \
 	  echo "Missing publishing directory: $(GENDIR)"; \
@@ -92,7 +91,7 @@ copies: $(TARGETS)
 
 publish: $(TARGETS)
 	@if test -d $(PUBDIR) ; then \
-	  for i in $(TARGETS) ; do \
+	  for i in $(TARGETS) $(IMAGES) ; do \
             if [ -f "$$i" ] ; then \
 	      cp -viup "$$i" $(PUBDIR) ; \
             fi; \

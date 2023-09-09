@@ -11,6 +11,11 @@ GENDIR		= "Generated/"
 ## Change the publication path for your generated files (assuming a local area)
 PUBDIR		= "../deatrich.github.io/$(PROJECT)/current/"
 
+## Change or leave empty the list of images used in your document
+##IMAGES		= 
+IMAGES		= aspell.png dood2.png dood.png
+
+## Here we specify command-line programs for viewing document types
 DOCXVIEWER	= lowriter
 PDFVIEWER	= evince
 HTMLVIEWER	= firefox
